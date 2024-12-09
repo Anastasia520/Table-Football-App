@@ -14,8 +14,23 @@ class PlayersController {
 
   async getAll(req, res, next) {
     try {
-      const players = await Player.findAll();
-      return res.json(players);
+      let { limit, page } = req.query;
+      page = page || 1;
+      limit = limit || 20;
+      let offset = page * limit - limit;
+
+      const playersData = await Player.findAndCountAll({ limit, offset });
+
+      const pages_count = Math.ceil(playersData.count / limit);
+
+      const response = {
+        count: playersData.count,
+        pages_count,
+        current_page: Number(page),
+        players: playersData.rows,
+      };
+
+      return res.json(response);
     } catch (e) {
       next(ApiErrorHandler.badRequest(e.message));
     }
