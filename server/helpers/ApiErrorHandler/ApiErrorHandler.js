@@ -16,6 +16,10 @@ class ApiErrorHandler extends Error {
   static forbidden(message) {
     return new ApiErrorHandler(403, message);
   }
+
+  static notFound(message) {
+    return new ApiErrorHandler(404, message);
+  }
 }
 
 module.exports = ApiErrorHandler;

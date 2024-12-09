@@ -111,7 +111,6 @@ const Game = sequelize.define(
   }
 );
 
-// Associations for Games
 Game.belongsTo(Team, { as: "team1", foreignKey: "team1_id" });
 Game.belongsTo(Team, { as: "team2", foreignKey: "team2_id" });
 

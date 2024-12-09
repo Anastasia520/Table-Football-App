@@ -27,6 +27,29 @@ class GamesController {
       const game = await Game.findOne({
         where: { id },
       });
+
+      if (!game) {
+        return next(ApiErrorHandler.notFound("Game not found"));
+      }
+
+      return res.json(game);
+    } catch (e) {
+      next(ApiErrorHandler.badRequest(e.message));
+    }
+  }
+
+  async update(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { goals_team1, goals_team2, status } = req.body;
+
+      const game = await Game.findByPk(id);
+      if (!game) {
+        return next(ApiErrorHandler.notFound("Game not found"));
+      }
+
+      await game.update({ goals_team1, goals_team2, status });
+
       return res.json(game);
     } catch (e) {
       next(ApiErrorHandler.badRequest(e.message));

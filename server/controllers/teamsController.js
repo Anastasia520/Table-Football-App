@@ -42,6 +42,11 @@ class TeamsController {
       const team = await Team.findOne({
         where: { id },
       });
+
+      if (!team) {
+        return next(ApiErrorHandler.notFound("Team not found"));
+      }
+
       return res.json(team);
     } catch (e) {
       next(ApiErrorHandler.badRequest(e.message));
