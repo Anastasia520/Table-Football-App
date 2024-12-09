@@ -1,6 +1,9 @@
 const { Op } = require("sequelize");
 const ApiErrorHandler = require("../helpers/ApiErrorHandler/ApiErrorHandler");
 const { Player, Game, Team } = require("../models/models");
+const {
+  makePlayerStatistics,
+} = require("../helpers/MakeStatatistics/MakeStatistics");
 
 class PlayersController {
   async create(req, res, next) {
@@ -24,7 +27,7 @@ class PlayersController {
 
       const playersData = await Promise.all(
         players.map(async (player) => {
-          const gamesAsTeam1 = await Game.findAll({
+          const allGames = await Game.findAll({
             include: [
               {
                 model: Team,
@@ -35,12 +38,8 @@ class PlayersController {
                     { player2_id: player.id },
                   ],
                 },
+                required: false,
               },
-            ],
-          });
-
-          const gamesAsTeam2 = await Game.findAll({
-            include: [
               {
                 model: Team,
                 as: "team2",
@@ -50,68 +49,17 @@ class PlayersController {
                     { player2_id: player.id },
                   ],
                 },
+                required: false,
               },
             ],
           });
 
-          const allGames = [...gamesAsTeam1, ...gamesAsTeam2];
-          const gamesPlayed = allGames.length;
-
-          const wins = allGames.filter(
-            (game) =>
-              ((game.team1?.player1_id === player.id ||
-                game.team1?.player2_id === player.id) &&
-                game.goals_team1 > game.goals_team2) ||
-              ((game.team2?.player1_id === player.id ||
-                game.team2?.player2_id === player.id) &&
-                game.goals_team2 > game.goals_team1)
-          ).length;
-
-          const losses = gamesPlayed - wins;
-          const winRatio = gamesPlayed > 0 ? wins / gamesPlayed : 0;
-
-          const goalsFor = allGames.reduce((sum, game) => {
-            if (
-              game.team1?.player1_id === player.id ||
-              game.team1?.player2_id === player.id
-            ) {
-              return sum + game.goals_team1;
-            } else if (
-              game.team2?.player1_id === player.id ||
-              game.team2?.player2_id === player.id
-            ) {
-              return sum + game.goals_team2;
-            }
-            return sum;
-          }, 0);
-
-          const goalsAgainst = allGames.reduce((sum, game) => {
-            if (
-              game.team1?.player1_id === player.id ||
-              game.team1?.player2_id === player.id
-            ) {
-              return sum + game.goals_team2;
-            } else if (
-              game.team2?.player1_id === player.id ||
-              game.team2?.player2_id === player.id
-            ) {
-              return sum + game.goals_team1;
-            }
-            return sum;
-          }, 0);
-
-          const goalDifference = goalsFor - goalsAgainst;
+          const statistics = makePlayerStatistics(allGames, player);
 
           return {
             id: player.id,
             name: player.name,
-            gamesPlayed,
-            wins,
-            losses,
-            winRatio,
-            goalsFor,
-            goalsAgainst,
-            goalDifference,
+            ...statistics,
           };
         })
       );
@@ -144,7 +92,7 @@ class PlayersController {
         return next(ApiErrorHandler.notFound("Player not found"));
       }
 
-      const gamesAsTeam1 = await Game.findAll({
+      const allGames = await Game.findAll({
         include: [
           {
             model: Team,
@@ -152,81 +100,25 @@ class PlayersController {
             where: {
               [Op.or]: [{ player1_id: player.id }, { player2_id: player.id }],
             },
+            required: false,
           },
-        ],
-      });
-
-      const gamesAsTeam2 = await Game.findAll({
-        include: [
           {
             model: Team,
             as: "team2",
             where: {
               [Op.or]: [{ player1_id: player.id }, { player2_id: player.id }],
             },
+            required: false,
           },
         ],
       });
 
-      const allGames = [...gamesAsTeam1, ...gamesAsTeam2];
-      const gamesPlayed = allGames.length;
-
-      const wins = allGames.filter(
-        (game) =>
-          ((game.team1?.player1_id === player.id ||
-            game.team1?.player2_id === player.id) &&
-            game.goals_team1 > game.goals_team2) ||
-          ((game.team2?.player1_id === player.id ||
-            game.team2?.player2_id === player.id) &&
-            game.goals_team2 > game.goals_team1)
-      ).length;
-
-      const losses = gamesPlayed - wins;
-
-      const winRatio = gamesPlayed > 0 ? wins / gamesPlayed : 0;
-
-      const goalsFor = allGames.reduce((sum, game) => {
-        if (
-          game.team1?.player1_id === player.id ||
-          game.team1?.player2_id === player.id
-        ) {
-          return sum + game.goals_team1;
-        } else if (
-          game.team2?.player1_id === player.id ||
-          game.team2?.player2_id === player.id
-        ) {
-          return sum + game.goals_team2;
-        }
-        return sum;
-      }, 0);
-
-      const goalsAgainst = allGames.reduce((sum, game) => {
-        if (
-          game.team1?.player1_id === player.id ||
-          game.team1?.player2_id === player.id
-        ) {
-          return sum + game.goals_team2;
-        } else if (
-          game.team2?.player1_id === player.id ||
-          game.team2?.player2_id === player.id
-        ) {
-          return sum + game.goals_team1;
-        }
-        return sum;
-      }, 0);
-
-      const goalDifference = goalsFor - goalsAgainst;
+      const statistics = makePlayerStatistics(allGames, player);
 
       const response = {
         id: player.id,
         name: player.name,
-        gamesPlayed,
-        wins,
-        losses,
-        winRatio,
-        goalsFor,
-        goalsAgainst,
-        goalDifference,
+        ...statistics,
       };
 
       return res.json(response);

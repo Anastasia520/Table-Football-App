@@ -1,5 +1,9 @@
+const { Op } = require("sequelize");
 const ApiErrorHandler = require("../helpers/ApiErrorHandler/ApiErrorHandler");
-const { Team } = require("../models/models");
+const { Team, Game } = require("../models/models");
+const {
+  makeTeamStatistics,
+} = require("../helpers/MakeStatatistics/MakeStatistics");
 
 class TeamsController {
   async create(req, res, next) {
@@ -19,15 +23,34 @@ class TeamsController {
       limit = limit || 20;
       let offset = page * limit - limit;
 
-      const teamsData = await Team.findAndCountAll({ limit, offset });
+      const teams = await Team.findAll();
 
-      const pages_count = Math.ceil(teamsData.count / limit);
+      const teamsData = await Promise.all(
+        teams.map(async (team) => {
+          const allGames = await Game.findAll({
+            where: {
+              [Op.or]: [{ team1_id: team.id }, { team2_id: team.id }],
+            },
+          });
+
+          const statistics = makeTeamStatistics(allGames, team);
+
+          return {
+            id: team.id,
+            name: team.name,
+            ...statistics,
+          };
+        })
+      );
+
+      const pages_count = Math.ceil(teamsData.length / limit);
+      const paginatedData = teamsData.slice(offset, offset + limit);
 
       const response = {
-        count: teamsData.count,
+        count: teamsData.length,
         pages_count,
         current_page: Number(page),
-        teams: teamsData.rows,
+        teams: paginatedData,
       };
 
       return res.json(response);
@@ -39,6 +62,7 @@ class TeamsController {
   async getOne(req, res, next) {
     try {
       const { id } = req.params;
+
       const team = await Team.findOne({
         where: { id },
       });
@@ -47,7 +71,21 @@ class TeamsController {
         return next(ApiErrorHandler.notFound("Team not found"));
       }
 
-      return res.json(team);
+      const allGames = await Game.findAll({
+        where: {
+          [Op.or]: [{ team1_id: team.id }, { team2_id: team.id }],
+        },
+      });
+
+      const statistics = makeTeamStatistics(allGames, team);
+
+      const response = {
+        id: team.id,
+        name: team.name,
+        ...statistics,
+      };
+
+      return res.json(response);
     } catch (e) {
       next(ApiErrorHandler.badRequest(e.message));
     }
