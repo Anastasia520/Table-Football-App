@@ -8,9 +8,7 @@ const App: React.FC = () => {
     <div className="app">
       <Suspense fallback="">
         <div className="content-page">
-          <div className="page-wrapper">
-            <AppRouter />
-          </div>
+          <AppRouter />
         </div>
       </Suspense>
     </div>
