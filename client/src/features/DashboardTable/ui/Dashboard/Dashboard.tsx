@@ -9,13 +9,18 @@ import { PageLoader } from "../../../../widgets/PageLoader";
 import TeamsStatistics from "../TeamsStatistics/TeamsStatistics";
 import { getTeamsStatisticsData } from "../../../../entities/Team";
 import { getTeamsStatistics } from "../../model/services/getTeamsStatistics/getTeamsStatistics";
-import { getTeamStatisticsRequestError } from "../../model/selectors/getTeamStatisticsRequestError/getTeamStatisticsRequestError";
-import { getTeamStatisticsRequestLoading } from "../../model/selectors/getTeamStatisticsRequestLoading/getTeamStatisticsRequestLoading";
 import {
   DynamicModuleLoader,
   ReducersList,
 } from "../../../../shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
 import { getTeamsStatisticsRequestReducer } from "../../model/slice/getTeamsStatisticsSlice";
+import { getTeamStatisticsRequestError } from "../../model/selectors/getTeamStatisticsRequestError/getTeamStatisticsRequestError";
+import { getTeamStatisticsRequestLoading } from "../../model/selectors/getTeamStatisticsRequestLoading/getTeamStatisticsRequestLoading";
+import PlayersStatistics from "../PlayersStatistics/PlayersStatistics";
+import { getPlayersStatisticsData } from "../../../../entities/Player";
+import { getPlayersStatisticsRequestError } from "../../model/selectors/getPlayersStatisticsRequestError/getPlayersStatisticsRequestError";
+import { getPlayersStatisticsRequestLoading } from "../../model/selectors/getPlayersStatisticsRequestLoading/getPlayersStatisticsRequestLoading";
+import { getPlayersStatistics } from "../../model/services/getPlayersStatistics/getPlayersStatistics";
 
 const initialReducers: ReducersList = {
   teamStatisticsRequest: getTeamsStatisticsRequestReducer,
@@ -25,8 +30,14 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const TeamsStatisticsData = useSelector(getTeamsStatisticsData);
-  const error = useSelector(getTeamStatisticsRequestError);
-  const isLoading = useSelector(getTeamStatisticsRequestLoading);
+  const errorTeamsStatistics = useSelector(getTeamStatisticsRequestError);
+  const isLoadingTeamsStatistics = useSelector(getTeamStatisticsRequestLoading);
+
+  const PlayersStatisticsData = useSelector(getPlayersStatisticsData);
+  const errorPlayersStatistics = useSelector(getPlayersStatisticsRequestError);
+  const isLoadingPlayersStatistics = useSelector(
+    getPlayersStatisticsRequestLoading
+  );
 
   const [tabValue, setTabValue] = useState<string>("1");
 
@@ -35,33 +46,53 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    dispatch(getTeamsStatistics(null));
-  }, [dispatch]);
+    if (tabValue === "1") {
+      dispatch(getTeamsStatistics(null));
+    } else if (tabValue === "2") {
+      dispatch(getPlayersStatistics(null));
+    }
+  }, [tabValue]);
 
   return (
     <>
       <DynamicModuleLoader reducers={initialReducers}>
-        {error && <Typography>Error</Typography>}
-        {isLoading ? (
-          <div className={cls.loadingContainer}>
-            <PageLoader />
-          </div>
-        ) : (
-          <TabContext value={tabValue}>
-            <TabList onChange={(e, value) => handleChangeTab(value)}>
-              <Tab label="Teams" value={"1"} />
-              <Tab label="Players" value={"2"} />
-            </TabList>
+        {errorTeamsStatistics && (
+          <Typography>{errorTeamsStatistics}</Typography>
+        )}
+        {errorPlayersStatistics && (
+          <Typography>{errorPlayersStatistics}</Typography>
+        )}
 
-            <TabPanel value={"1"}>
+        <TabContext value={tabValue}>
+          <TabList onChange={(e, value) => handleChangeTab(value)}>
+            <Tab label="Teams" value={"1"} />
+            <Tab label="Players" value={"2"} />
+          </TabList>
+
+          <TabPanel value={"1"}>
+            {isLoadingTeamsStatistics ? (
+              <div className={cls.loadingContainer}>
+                <PageLoader />
+              </div>
+            ) : (
               <TeamsStatistics
                 statistics={TeamsStatisticsData?.teamsStatistics}
               />
-            </TabPanel>
+            )}
+          </TabPanel>
 
-            <TabPanel value={"2"}>Players</TabPanel>
-          </TabContext>
-        )}
+          <TabPanel value={"2"}>
+            {isLoadingPlayersStatistics ? (
+              <div className={cls.loadingContainer}>
+                <PageLoader />
+              </div>
+            ) : (
+              <PlayersStatistics
+                statistics={PlayersStatisticsData?.playersStatistics}
+              />
+            )}
+          </TabPanel>
+        </TabContext>
       </DynamicModuleLoader>
     </>
   );

@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { getTeamsStatistics } from "../services/getTeamsStatistics/getTeamsStatistics";
-import { TeamStatisticsRequestSchema } from "../types/teamStatisticsRequestSchema";
+import { TeamsStatisticsRequestSchema } from "../types/teamsStatisticsRequestSchema";
 
-const initialState: TeamStatisticsRequestSchema = {
+const initialState: TeamsStatisticsRequestSchema = {
   isLoading: false,
 };
 

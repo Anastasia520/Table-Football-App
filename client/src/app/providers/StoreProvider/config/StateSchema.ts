@@ -7,13 +7,19 @@ import {
 } from "@reduxjs/toolkit";
 
 import { TeamStatisticsSchema } from "../../../../entities/Team";
-import { TeamStatisticsRequestSchema } from "../../../../features/DashboardTable/model/types/teamStatisticsRequestSchema";
+
+import { PlayersStatisticsSchema } from "../../../../entities/Player";
+import {
+  PlayersStatisticsRequestSchema,
+  TeamsStatisticsRequestSchema,
+} from "../../../../features/DashboardTable";
 
 export interface StateSchema {
   teamsStatistics: TeamStatisticsSchema;
-
+  playersStatistics: PlayersStatisticsSchema;
   // async reducers
-  teamStatisticsRequest?: TeamStatisticsRequestSchema;
+  teamStatisticsRequest?: TeamsStatisticsRequestSchema;
+  playersStatisticsRequest?: PlayersStatisticsRequestSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
