@@ -27,7 +27,7 @@ const HomePage = () => {
           <Button
             variant="contained"
             size="large"
-            onClick={() => navigate("/dashboards")}
+            onClick={() => navigate("/dashboard")}
           >
             Go to dashboards
           </Button>

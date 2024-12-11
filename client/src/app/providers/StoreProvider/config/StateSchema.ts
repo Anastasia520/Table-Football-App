@@ -6,15 +6,14 @@ import {
   ReducersMapObject,
 } from "@reduxjs/toolkit";
 
-import { ValidationSchema } from "../../../../features/RDFValidateSHACL";
-import { ValidationReportSchema } from "../../../../entities/ValidationReport";
+import { TeamStatisticsSchema } from "../../../../entities/Team";
+import { TeamStatisticsRequestSchema } from "../../../../features/DashboardTable/model/types/teamStatisticsRequestSchema";
 
 export interface StateSchema {
-  // counter: CounterSchema;
-  validationReport: ValidationReportSchema;
+  teamsStatistics: TeamStatisticsSchema;
 
   // async reducers
-  validationForm?: ValidationSchema;
+  teamStatisticsRequest?: TeamStatisticsRequestSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

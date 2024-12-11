@@ -1,6 +1,7 @@
 import { ReducersMapObject, configureStore } from "@reduxjs/toolkit";
 import { StateSchema } from "./StateSchema";
 import { createReducerManager } from "./reducerManager";
+import { teamsStatisticsReducer } from "../../../../entities/Team";
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -8,7 +9,7 @@ export function createReduxStore(
 ) {
   const rootReducer: ReducersMapObject<StateSchema> = {
     // required reducers only
-   
+    teamsStatistics: teamsStatisticsReducer,
     ...asyncReducers,
   };
 
