@@ -16,6 +16,8 @@ import {
 import { CreatePlayerSchema } from "../../../../features/CreatePlayer";
 import { Player } from "../../../../entities/Player/model/types/playerStatistic";
 import { CreateTeamSchema } from "../../../../features/CreateTeam";
+import { CreateGameSchema } from "../../../../features/CreateGame";
+import { Game } from "../../../../entities/Game/model/types/game";
 
 export interface StateSchema {
   teamsStatistics: TeamStatisticsSchema;
@@ -24,11 +26,14 @@ export interface StateSchema {
   playersStatistics: PlayersStatisticsSchema;
   playerStatistics: Player;
 
+  game: Game;
+
   // async reducers
-  teamStatisticsRequest?: TeamsStatisticsRequestSchema;
+  teamsStatisticsRequest?: TeamsStatisticsRequestSchema;
   playersStatisticsRequest?: PlayersStatisticsRequestSchema;
   createPlayer?: CreatePlayerSchema;
   createTeam?: CreateTeamSchema;
+  createGame?: CreateGameSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

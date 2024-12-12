@@ -1,11 +1,11 @@
 export interface Player {
   id: string;
   name: string;
-  gamesPlayed?: number;
+  games_played?: number;
   wins?: number;
   losses?: number;
-  winRatio?: number;
-  goalsFor?: number;
-  goalsAgainst?: number;
-  goalDifference?: number;
+  win_ratio?: number;
+  goals_for?: number;
+  goals_against?: number;
+  goal_difference?: number;
 }

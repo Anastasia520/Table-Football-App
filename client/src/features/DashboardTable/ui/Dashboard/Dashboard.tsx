@@ -14,24 +14,28 @@ import {
   ReducersList,
 } from "../../../../shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
 import { getTeamsStatisticsRequestReducer } from "../../model/slice/getTeamsStatisticsSlice";
-import { getTeamStatisticsRequestError } from "../../model/selectors/getTeamStatisticsRequestError/getTeamStatisticsRequestError";
-import { getTeamStatisticsRequestLoading } from "../../model/selectors/getTeamStatisticsRequestLoading/getTeamStatisticsRequestLoading";
+import { getTeamsStatisticsRequestError } from "../../model/selectors/getTeamStatisticsRequestError/getTeamStatisticsRequestError";
+import { getTeamsStatisticsRequestLoading } from "../../model/selectors/getTeamStatisticsRequestLoading/getTeamStatisticsRequestLoading";
 import PlayersStatistics from "../PlayersStatistics/PlayersStatistics";
 import { getPlayersStatisticsData } from "../../../../entities/Player";
 import { getPlayersStatisticsRequestError } from "../../model/selectors/getPlayersStatisticsRequestError/getPlayersStatisticsRequestError";
 import { getPlayersStatisticsRequestLoading } from "../../model/selectors/getPlayersStatisticsRequestLoading/getPlayersStatisticsRequestLoading";
 import { getPlayersStatistics } from "../../model/services/getPlayersStatistics/getPlayersStatistics";
+import { getPlayersStatisticsRequestReducer } from "../../model/slice/getPlayersStatisticsSlice";
 
 const initialReducers: ReducersList = {
-  teamStatisticsRequest: getTeamsStatisticsRequestReducer,
+  teamsStatisticsRequest: getTeamsStatisticsRequestReducer,
+  playersStatisticsRequest: getPlayersStatisticsRequestReducer,
 };
 
 export default function Dashboard() {
   const dispatch = useDispatch();
 
   const TeamsStatisticsData = useSelector(getTeamsStatisticsData);
-  const errorTeamsStatistics = useSelector(getTeamStatisticsRequestError);
-  const isLoadingTeamsStatistics = useSelector(getTeamStatisticsRequestLoading);
+  const errorTeamsStatistics = useSelector(getTeamsStatisticsRequestError);
+  const isLoadingTeamsStatistics = useSelector(
+    getTeamsStatisticsRequestLoading
+  );
 
   const PlayersStatisticsData = useSelector(getPlayersStatisticsData);
   const errorPlayersStatistics = useSelector(getPlayersStatisticsRequestError);

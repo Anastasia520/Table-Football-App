@@ -5,12 +5,14 @@ import { Button, Typography } from "@mui/material";
 import cls from "./HomePage.module.scss";
 import { CreatePlayerModal } from "../../../features/CreatePlayer";
 import { CreateTeamModal } from "../../../features/CreateTeam";
+import { CreateGameModal } from "../../../features/CreateGame";
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   const [openCreatePlayerModal, setOpenCreatePlayerModal] = useState(false);
   const [openCreateTeamModal, setOpenCreateTeamModal] = useState(false);
+  const [openCreateGameModal, setOpenCreateGameModal] = useState(false);
 
   const handleCloseCreatePlayerModal = useCallback(() => {
     setOpenCreatePlayerModal(false);
@@ -18,6 +20,10 @@ const HomePage = () => {
 
   const handleCloseCreateTeamModal = useCallback(() => {
     setOpenCreateTeamModal(false);
+  }, []);
+
+  const handleCloseCreateGameModal = useCallback(() => {
+    setOpenCreateGameModal(false);
   }, []);
 
   return (
@@ -35,7 +41,11 @@ const HomePage = () => {
         </Typography>
 
         <div className={cls.btns}>
-          <Button variant="contained" size="large">
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setOpenCreateGameModal(true)}
+          >
             Create a game
           </Button>
           <Button
@@ -68,10 +78,18 @@ const HomePage = () => {
           handleClose={handleCloseCreatePlayerModal}
         />
       )}
+
       {openCreateTeamModal && (
         <CreateTeamModal
           open={openCreateTeamModal}
           handleClose={handleCloseCreateTeamModal}
+        />
+      )}
+
+      {openCreateGameModal && (
+        <CreateGameModal
+          open={openCreateGameModal}
+          handleClose={handleCloseCreateGameModal}
         />
       )}
     </div>

@@ -3,11 +3,11 @@ export interface Team {
   name: string;
   player1_id?: string;
   player2_id?: string;
-  gamesPlayed?: number;
+  games_played?: number;
   wins?: number;
   losses?: number;
-  winRatio?: number;
-  goalsFor?: number;
-  goalsAgainst?: number;
-  goalDifference?: number;
+  win_ratio?: number;
+  goals_for?: number;
+  goals_against?: number;
+  goal_difference?: number;
 }

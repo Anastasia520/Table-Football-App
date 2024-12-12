@@ -4,7 +4,7 @@ import { TeamStatistics } from "../../../../entities/Team";
 
 const columns: GridColDef[] = [
   { field: "name", headerName: "Team", width: 130 },
-  { field: "gamesPlayed", headerName: "Games Played", width: 130 },
+  { field: "games_played", headerName: "Games Played", width: 130 },
   {
     field: "wins",
     headerName: "Wins",
@@ -16,23 +16,23 @@ const columns: GridColDef[] = [
     type: "number",
   },
   {
-    field: "winRatio",
+    field: "win_ratio",
     headerName: "Win Ration",
     type: "number",
   },
 
   {
-    field: "goalsFor",
+    field: "goals_for",
     headerName: "GF",
     type: "number",
   },
   {
-    field: "goalsAgainst",
+    field: "goals_against",
     headerName: "GA",
     type: "number",
   },
   {
-    field: "goalDifference",
+    field: "goal_difference",
     headerName: "GF",
     type: "number",
   },

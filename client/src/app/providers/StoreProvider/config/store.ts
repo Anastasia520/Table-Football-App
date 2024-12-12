@@ -7,6 +7,7 @@ import {
 } from "../../../../entities/Team";
 import { playersStatisticsReducer } from "../../../../entities/Player";
 import { playerStatisticsReducer } from "../../../../entities/Player/model/slice/playerStatisticsSlice";
+import { gameReducer } from "../../../../entities/Game";
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -19,6 +20,9 @@ export function createReduxStore(
 
     playersStatistics: playersStatisticsReducer,
     playerStatistics: playerStatisticsReducer,
+
+    game: gameReducer,
+
     ...asyncReducers,
   };
 
