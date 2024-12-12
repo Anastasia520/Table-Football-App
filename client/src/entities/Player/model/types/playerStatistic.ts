@@ -1,3 +1,5 @@
+import { TeamGame } from "../../../Team";
+
 export interface Player {
   id: string;
   name: string;
@@ -8,4 +10,6 @@ export interface Player {
   goals_for?: number;
   goals_against?: number;
   goal_difference?: number;
+
+  games?: Array<TeamGame>;
 }

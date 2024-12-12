@@ -19,6 +19,7 @@ import { CreateTeamSchema } from "../../../../features/CreateTeam";
 import { CreateGameSchema } from "../../../../features/CreateGame";
 import { Game } from "../../../../entities/Game/model/types/game";
 import { TeamStatisticsRequestSchema } from "../../../../features/TeamDetails/model/types/teamStatisticsRequestSchema";
+import { PlayerStatisticsRequestSchema } from "../../../../features/PlayerDetails/model/types/playerStatisticsRequestSchema";
 
 export interface StateSchema {
   teamsStatistics: TeamStatisticsSchema;
@@ -34,6 +35,8 @@ export interface StateSchema {
   teamStatisticsRequest?: TeamStatisticsRequestSchema;
 
   playersStatisticsRequest?: PlayersStatisticsRequestSchema;
+  playerStatisticsRequest?: PlayerStatisticsRequestSchema;
+
   createPlayer?: CreatePlayerSchema;
   createTeam?: CreateTeamSchema;
   createGame?: CreateGameSchema;

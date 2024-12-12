@@ -1,3 +1,8 @@
+export {
+  playerStatisticsActions,
+  playerStatisticsReducer,
+} from "./model/slice/playerStatisticsSlice";
+
 export { playerStatisticsSlice } from "./model/slice/playerStatisticsSlice";
 
 export { getPlayersStatisticsData } from "./model/selectors/getPlayersStatisticsData/getPlayersStatisticsData";

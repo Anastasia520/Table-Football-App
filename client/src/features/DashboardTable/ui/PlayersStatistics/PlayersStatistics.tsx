@@ -1,6 +1,7 @@
 import { Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { PlayersStatistics as PlayersStatisticsType } from "../../../../entities/Player";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef[] = [
   { field: "name", headerName: "Player", width: 130 },
@@ -46,6 +47,11 @@ interface PlayersStatisticsProps {
 
 export default function PlayersStatistics(props: PlayersStatisticsProps) {
   const { statistics } = props;
+  const navigate = useNavigate();
+
+  const handleTeamClick = (e: any) => {
+    navigate(`/player/${e.row.id}`);
+  };
 
   return (
     <Paper sx={{ height: "100", width: "100%" }}>
@@ -55,6 +61,7 @@ export default function PlayersStatistics(props: PlayersStatisticsProps) {
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[10]}
         sx={{ border: 0 }}
+        onRowClick={handleTeamClick}
       />
     </Paper>
   );
