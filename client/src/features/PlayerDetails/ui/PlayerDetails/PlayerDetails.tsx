@@ -72,12 +72,6 @@ export default function PlayerDetails(props: TeamDetailsProps) {
     dispatch(getPlayerStatistics(id));
   }, [id]);
 
-  useEffect(() => {
-    if (playerStatisticsData) {
-      console.log("playerStatisticsData", playerStatisticsData);
-    }
-  }, [playerStatisticsData]);
-
   return (
     <div className={cls.playerDetailsContainer}>
       {errorPlayerStatistics && (

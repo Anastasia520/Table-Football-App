@@ -17,7 +17,7 @@ const GamePage = () => {
           <div className={cls.homeLink} onClick={() => navigate(-1)}>
             <ArrowBackIcon color="primary" />
           </div>
-          <Typography fontSize={20}>Game between </Typography>
+          <Typography fontSize={20}>Game</Typography>
         </div>
 
         <GameDetails id={String(id)} />
