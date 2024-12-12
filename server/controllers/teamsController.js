@@ -20,7 +20,7 @@ class TeamsController {
     try {
       let { limit, page } = req.query;
       page = page || 1;
-      limit = limit || 10;
+      limit = limit || 200;
       let offset = page * limit - limit;
 
       const teams = await Team.findAll();
