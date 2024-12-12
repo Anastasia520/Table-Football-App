@@ -1,10 +1,18 @@
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 
 import cls from "./HomePage.module.scss";
+import { CreatePlayerModal } from "../../../features/CreatePlayer";
 
 const HomePage = () => {
   const navigate = useNavigate();
+
+  const [openCreatePlayerModal, setOpenCreatePlayerModal] = useState(false);
+
+  const handleCloseCreatePlayerModal = useCallback(() => {
+    setOpenCreatePlayerModal(false);
+  }, []);
 
   return (
     <div className={cls.homePage}>
@@ -31,7 +39,11 @@ const HomePage = () => {
           >
             Go to dashboards
           </Button>
-          <Button variant="contained" size="large">
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setOpenCreatePlayerModal(true)}
+          >
             Create a new player
           </Button>
           <Button variant="contained" size="large">
@@ -39,6 +51,12 @@ const HomePage = () => {
           </Button>
         </div>
       </div>
+      {openCreatePlayerModal && (
+        <CreatePlayerModal
+          open={openCreatePlayerModal}
+          handleClose={handleCloseCreatePlayerModal}
+        />
+      )}
     </div>
   );
 };

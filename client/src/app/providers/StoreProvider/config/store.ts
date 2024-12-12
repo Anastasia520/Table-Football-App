@@ -3,6 +3,7 @@ import { StateSchema } from "./StateSchema";
 import { createReducerManager } from "./reducerManager";
 import { teamsStatisticsReducer } from "../../../../entities/Team";
 import { playersStatisticsReducer } from "../../../../entities/Player";
+import { playerStatisticsReducer } from "../../../../entities/Player/model/slice/playerStatisticsSlice";
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -12,6 +13,7 @@ export function createReduxStore(
     // required reducers only
     teamsStatistics: teamsStatisticsReducer,
     playersStatistics: playersStatisticsReducer,
+    playerStatistics: playerStatisticsReducer,
     ...asyncReducers,
   };
 

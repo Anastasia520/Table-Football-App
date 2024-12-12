@@ -13,13 +13,17 @@ import {
   PlayersStatisticsRequestSchema,
   TeamsStatisticsRequestSchema,
 } from "../../../../features/DashboardTable";
+import { CreatePlayerSchema } from "../../../../features/CreatePlayer";
+import { Player } from "../../../../entities/Player/model/types/playerStatistic";
 
 export interface StateSchema {
   teamsStatistics: TeamStatisticsSchema;
   playersStatistics: PlayersStatisticsSchema;
+  playerStatistics: Player;
   // async reducers
   teamStatisticsRequest?: TeamsStatisticsRequestSchema;
   playersStatisticsRequest?: PlayersStatisticsRequestSchema;
+  createPlayer?: CreatePlayerSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
