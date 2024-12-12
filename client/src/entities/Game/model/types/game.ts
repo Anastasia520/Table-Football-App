@@ -1,4 +1,4 @@
-enum GameStatus {
+export enum GameStatus {
   "ongoing",
   "completed",
 }

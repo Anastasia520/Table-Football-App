@@ -16,4 +16,4 @@ export type {
   TeamStatisticsSchema,
 } from "./model/types/teamsStatistics";
 
-export type { Team } from "./model/types/teamStatistic";
+export type { Team, TeamGame } from "./model/types/teamStatistic";

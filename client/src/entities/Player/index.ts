@@ -11,3 +11,5 @@ export type {
   PlayersStatistics,
   PlayersStatisticsSchema,
 } from "./model/types/playersStatistics";
+
+export type { Player } from "./model/types/playerStatistic";

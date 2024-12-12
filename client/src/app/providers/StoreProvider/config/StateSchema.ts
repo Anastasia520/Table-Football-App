@@ -18,6 +18,7 @@ import { Player } from "../../../../entities/Player/model/types/playerStatistic"
 import { CreateTeamSchema } from "../../../../features/CreateTeam";
 import { CreateGameSchema } from "../../../../features/CreateGame";
 import { Game } from "../../../../entities/Game/model/types/game";
+import { TeamStatisticsRequestSchema } from "../../../../features/TeamDetails/model/types/teamStatisticsRequestSchema";
 
 export interface StateSchema {
   teamsStatistics: TeamStatisticsSchema;
@@ -30,6 +31,8 @@ export interface StateSchema {
 
   // async reducers
   teamsStatisticsRequest?: TeamsStatisticsRequestSchema;
+  teamStatisticsRequest?: TeamStatisticsRequestSchema;
+
   playersStatisticsRequest?: PlayersStatisticsRequestSchema;
   createPlayer?: CreatePlayerSchema;
   createTeam?: CreateTeamSchema;
