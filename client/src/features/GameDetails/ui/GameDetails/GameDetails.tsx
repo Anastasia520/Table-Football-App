@@ -11,10 +11,19 @@ import { PageLoader } from "../../../../widgets/PageLoader";
 import { getUpdateGameError } from "../../model/selectors/getUpdateGameError/getUpdateGameError";
 import { getUpdateGameLoading } from "../../model/selectors/getUpdateGameLoading/getUpdateGameLoading";
 import { putGame } from "../../model/services/putGame/putGame";
+import {
+  DynamicModuleLoader,
+  ReducersList,
+} from "../../../../shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
+import { putGameReducer } from "../../model/slice/putGameSlice";
 
 interface GameDetailsProps {
   id: string;
 }
+
+const initialReducers: ReducersList = {
+  updateGame: putGameReducer,
+};
 
 export default function GameDetails(props: GameDetailsProps) {
   const { id } = props;
@@ -84,62 +93,69 @@ export default function GameDetails(props: GameDetailsProps) {
   );
 
   return (
-    <div className={cls.gameDetailsContainer}>
-      {errorGame && <Typography>{errorGame}</Typography>}
-      {errorUpdateGame && <Typography>{errorUpdateGame}</Typography>}
-      {isLoadingGame ? (
-        <PageLoader />
-      ) : (
-        <>
-          <div className={cls.team}>
-            <Typography> {gameData.team1_id?.name} </Typography>
-            <TextField
-              label="Goals Team 1"
-              type="number"
-              value={team1Goals}
-              onChange={handleChangeTeam1Goals}
-            />
-          </div>
+    <DynamicModuleLoader reducers={initialReducers}>
+      <div className={cls.gameDetailsContainer}>
+        {errorGame && <Typography>{errorGame}</Typography>}
+        {errorUpdateGame && <Typography>{errorUpdateGame}</Typography>}
+        {isLoadingGame ? (
+          <PageLoader />
+        ) : (
+          <>
+            {String(gameData.status) === "completed" && (
+              <Typography fontSize={32}>Game is completed!</Typography>
+            )}
+            <div className={cls.team}>
+              <Typography> {gameData.team1_id?.name} </Typography>
+              <TextField
+                label="Goals Team 1"
+                type="number"
+                value={team1Goals}
+                onChange={handleChangeTeam1Goals}
+              />
+            </div>
 
-          <div className={cls.team}>
-            <Typography> {gameData.team2_id?.name} </Typography>
-            <TextField
-              label="Goals Team 2"
-              type="number"
-              value={team2Goals}
-              onChange={handleChangeTeam2Goals}
-            />
-          </div>
+            <div className={cls.team}>
+              <Typography> {gameData.team2_id?.name} </Typography>
+              <TextField
+                label="Goals Team 2"
+                type="number"
+                value={team2Goals}
+                onChange={handleChangeTeam2Goals}
+              />
+            </div>
 
-          <div className={cls.btns}>
-            <Button
-              className={cls.btnCreate}
-              variant="contained"
-              size="large"
-              onClick={handleUpdateGame}
-            >
-              {isLoadingUpdateGame ? (
-                <Typography>Loading...</Typography>
-              ) : (
-                <Typography>Save changes</Typography>
-              )}
-            </Button>
+            <div className={cls.btns}>
+              <Button
+                className={cls.btnCreate}
+                variant="contained"
+                size="large"
+                onClick={handleUpdateGame}
+                disabled={String(gameData.status) === "completed"}
+              >
+                {isLoadingUpdateGame ? (
+                  <Typography>Loading...</Typography>
+                ) : (
+                  <Typography>Save changes</Typography>
+                )}
+              </Button>
 
-            <Button
-              className={cls.btnCreate}
-              variant="contained"
-              size="large"
-              onClick={() => handleUpdateGame(true)}
-            >
-              {isLoadingUpdateGame ? (
-                <Typography>Loading...</Typography>
-              ) : (
-                <Typography>Save and complete</Typography>
-              )}
-            </Button>
-          </div>
-        </>
-      )}
-    </div>
+              <Button
+                className={cls.btnCreate}
+                variant="contained"
+                size="large"
+                onClick={() => handleUpdateGame(true)}
+                disabled={String(gameData.status) === "completed"}
+              >
+                {isLoadingUpdateGame ? (
+                  <Typography>Loading...</Typography>
+                ) : (
+                  <Typography>Save and complete</Typography>
+                )}
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </DynamicModuleLoader>
   );
 }
