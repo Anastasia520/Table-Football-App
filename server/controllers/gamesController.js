@@ -79,9 +79,51 @@ class GamesController {
         return next(ApiErrorHandler.notFound("Game not found"));
       }
 
+      if (game.status === "completed") {
+        return next(
+          ApiErrorHandler.notFound(
+            "Game is completed! You can't update it anymore"
+          )
+        );
+      }
+
       await game.update({ goals_team1, goals_team2, status });
 
-      return res.json(game);
+      let gameUpd = await Game.findOne({
+        where: { id },
+        include: [
+          {
+            model: Team,
+            as: "team1",
+            attributes: ["id", "name"],
+          },
+          {
+            model: Team,
+            as: "team2",
+            attributes: ["id", "name"],
+          },
+        ],
+      });
+
+      const formattedGame = {
+        id: gameUpd.id,
+        goals_team1: gameUpd.goals_team1,
+        goals_team2: gameUpd.goals_team2,
+        status: gameUpd.status,
+        team1_id: {
+          id: gameUpd.team1?.id || null,
+          name: gameUpd.team1?.name || "",
+        },
+        team2_id: {
+          id: gameUpd.team2?.id || null,
+          name: gameUpd.team2?.name || "",
+        },
+        updatedAt: gameUpd.updatedAt,
+        createdAt: gameUpd.createdAt,
+        completed_at: gameUpd.completed_at,
+      };
+
+      return res.json(formattedGame);
     } catch (e) {
       next(ApiErrorHandler.badRequest(e.message));
     }
