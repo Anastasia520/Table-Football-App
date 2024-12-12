@@ -6,7 +6,7 @@ import {
   ReducersMapObject,
 } from "@reduxjs/toolkit";
 
-import { TeamStatisticsSchema } from "../../../../entities/Team";
+import { Team, TeamStatisticsSchema } from "../../../../entities/Team";
 
 import { PlayersStatisticsSchema } from "../../../../entities/Player";
 import {
@@ -15,15 +15,20 @@ import {
 } from "../../../../features/DashboardTable";
 import { CreatePlayerSchema } from "../../../../features/CreatePlayer";
 import { Player } from "../../../../entities/Player/model/types/playerStatistic";
+import { CreateTeamSchema } from "../../../../features/CreateTeam";
 
 export interface StateSchema {
   teamsStatistics: TeamStatisticsSchema;
+  teamStatistics: Team;
+
   playersStatistics: PlayersStatisticsSchema;
   playerStatistics: Player;
+
   // async reducers
   teamStatisticsRequest?: TeamsStatisticsRequestSchema;
   playersStatisticsRequest?: PlayersStatisticsRequestSchema;
   createPlayer?: CreatePlayerSchema;
+  createTeam?: CreateTeamSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
