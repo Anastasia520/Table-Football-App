@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
   Box,
@@ -42,7 +43,7 @@ const initialReducers: ReducersList = {
 
 export default function CreateGameModal(props: CreatePlayerModalProps) {
   const { open, handleClose } = props;
-
+const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const createGameData = useSelector(getGameData);
@@ -86,6 +87,8 @@ export default function CreateGameModal(props: CreatePlayerModalProps) {
     if (createGameData?.id) {
       setTeam1(null);
       setTeam2(null);
+
+      navigate(`/game/${createGameData?.id}`)
     }
   }, [createGameData]);
 
