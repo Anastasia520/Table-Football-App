@@ -1,5 +1,5 @@
 const ApiErrorHandler = require("../helpers/ApiErrorHandler/ApiErrorHandler");
-const { Game } = require("../models/models");
+const { Game, Team } = require("../models/models");
 
 class GamesController {
   async create(req, res, next) {
@@ -24,15 +24,46 @@ class GamesController {
   async getOne(req, res, next) {
     try {
       const { id } = req.params;
+
       const game = await Game.findOne({
         where: { id },
+        include: [
+          {
+            model: Team,
+            as: "team1",
+            attributes: ["id", "name"],
+          },
+          {
+            model: Team,
+            as: "team2",
+            attributes: ["id", "name"],
+          },
+        ],
       });
 
       if (!game) {
         return next(ApiErrorHandler.notFound("Game not found"));
       }
 
-      return res.json(game);
+      const formattedGame = {
+        id: game.id,
+        goals_team1: game.goals_team1,
+        goals_team2: game.goals_team2,
+        status: game.status,
+        team1_id: {
+          id: game.team1?.id || null,
+          name: game.team1?.name || "",
+        },
+        team2_id: {
+          id: game.team2?.id || null,
+          name: game.team2?.name || "",
+        },
+        updatedAt: game.updatedAt,
+        createdAt: game.createdAt,
+        completed_at: game.completed_at,
+      };
+
+      return res.json(formattedGame);
     } catch (e) {
       next(ApiErrorHandler.badRequest(e.message));
     }
