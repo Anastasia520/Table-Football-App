@@ -90,10 +90,12 @@ export default function CreateGameModal(props: CreatePlayerModalProps) {
   }, [createGameData]);
 
   useEffect(() => {
-    dispatch(getTeamsStatistics(null));
+    dispatch(getTeamsStatistics());
 
     return () => {
-      dispatch(gameActions.setGameData({ id: "", team1_id: "", team2_id: "" }));
+      dispatch(
+        gameActions.setGameData({ id: "", team1_id: null, team2_id: null })
+      );
     };
   }, []);
 

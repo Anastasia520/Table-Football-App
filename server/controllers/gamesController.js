@@ -5,8 +5,42 @@ class GamesController {
   async create(req, res, next) {
     try {
       const { team1_id, team2_id, status } = req.body;
+
       const game = await Game.create({ team1_id, team2_id, status });
-      return res.json(game);
+
+      const fullGame = await Game.findOne({
+        where: { id: game.id },
+        include: [
+          {
+            model: Team,
+            as: "team1",
+            attributes: ["id", "name"],
+          },
+          {
+            model: Team,
+            as: "team2",
+            attributes: ["id", "name"],
+          },
+        ],
+      });
+
+      const response = {
+        id: fullGame.id,
+        goals_team1: fullGame.goals_team1,
+        goals_team2: fullGame.goals_team2,
+        status: fullGame.status,
+        team1_id: fullGame.team1
+          ? { id: fullGame.team1.id, name: fullGame.team1.name }
+          : null,
+        team2_id: fullGame.team2
+          ? { id: fullGame.team2.id, name: fullGame.team2.name }
+          : null,
+        updatedAt: fullGame.updatedAt,
+        createdAt: fullGame.createdAt,
+        completed_at: fullGame.completed_at,
+      };
+
+      return res.json(response);
     } catch (e) {
       next(ApiErrorHandler.badRequest(e.message));
     }

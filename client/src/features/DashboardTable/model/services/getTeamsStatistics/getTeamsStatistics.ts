@@ -8,7 +8,7 @@ import {
 
 const URL = `${import.meta.env.VITE_BACK_URL}`;
 
-export const getTeamsStatistics = createAsyncThunk<TeamStatisticsSchema, null>(
+export const getTeamsStatistics = createAsyncThunk<TeamStatisticsSchema>(
   "teams/getTeamsStatistics",
   async (_, thunkAPI) => {
     try {

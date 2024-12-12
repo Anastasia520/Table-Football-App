@@ -51,9 +51,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (tabValue === "1") {
-      dispatch(getTeamsStatistics(null));
+      dispatch(getTeamsStatistics());
     } else if (tabValue === "2") {
-      dispatch(getPlayersStatistics(null));
+      dispatch(getPlayersStatistics());
     }
   }, [tabValue]);
 

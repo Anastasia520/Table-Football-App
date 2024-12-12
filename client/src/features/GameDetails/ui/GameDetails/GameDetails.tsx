@@ -129,7 +129,7 @@ export default function GameDetails(props: GameDetailsProps) {
                 className={cls.btnCreate}
                 variant="contained"
                 size="large"
-                onClick={handleUpdateGame}
+                onClick={() => handleUpdateGame(false)}
                 disabled={String(gameData.status) === "completed"}
               >
                 {isLoadingUpdateGame ? (

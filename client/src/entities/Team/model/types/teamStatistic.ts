@@ -15,7 +15,7 @@ export interface Team {
   goal_difference?: number;
   player_1?: Player;
   player_2?: Player;
-
+  goals_team?: number;
   games?: Array<TeamGame>;
 }
 

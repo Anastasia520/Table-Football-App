@@ -102,7 +102,7 @@ export default function CreateTeamModal(props: CreatePlayerModalProps) {
   }, [createTeamData]);
 
   useEffect(() => {
-    dispatch(getPlayersStatistics(null));
+    dispatch(getPlayersStatistics());
 
     return () => {
       dispatch(

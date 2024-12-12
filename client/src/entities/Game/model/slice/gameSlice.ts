@@ -3,8 +3,8 @@ import { Game } from "../types/game";
 
 const initialState: Game = {
   id: "",
-  team1_id: "",
-  team2_id: "",
+  team1_id: null,
+  team2_id: null,
 };
 
 export const gameSlice = createSlice({
