@@ -25,13 +25,13 @@ const makeTeamStatistics = (allGames, team) => {
   const goalDifference = goalsFor - goalsAgainst;
 
   return {
-    gamesPlayed,
+    games_played: gamesPlayed,
     wins,
     losses,
-    winRatio,
-    goalsFor,
-    goalsAgainst,
-    goalDifference,
+    win_ratio: winRatio,
+    goals_for: goalsFor,
+    goals_against: goalsAgainst,
+    goal_difference: goalDifference,
   };
 };
 
@@ -50,13 +50,13 @@ const makePlayerStatistics = (allGames, player) => {
   if (gamesPlayed === 0) {
     // Return zero stats if the player hasn't played any games
     return {
-      gamesPlayed: 0,
+      games_played: 0,
       wins: 0,
       losses: 0,
-      winRatio: 0,
-      goalsFor: 0,
-      goalsAgainst: 0,
-      goalDifference: 0,
+      win_ratio: 0,
+      goals_for: 0,
+      goals_against: 0,
+      goal_difference: 0,
     };
   }
 
@@ -106,13 +106,13 @@ const makePlayerStatistics = (allGames, player) => {
   const goalDifference = goalsFor - goalsAgainst;
 
   return {
-    gamesPlayed,
+    games_played: gamesPlayed,
     wins,
     losses,
-    winRatio,
-    goalsFor,
-    goalsAgainst,
-    goalDifference,
+    win_ratio: winRatio,
+    goals_for: goalsFor,
+    goals_against: goalsAgainst,
+    goal_difference: goalDifference,
   };
 };
 
