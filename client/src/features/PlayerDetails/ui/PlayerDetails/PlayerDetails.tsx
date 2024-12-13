@@ -98,7 +98,7 @@ export default function PlayerDetails(props: TeamDetailsProps) {
             <Typography>Wins: {playerStatisticsData.wins}</Typography>
             <Typography>Losses: {playerStatisticsData.losses}</Typography>
             <Typography>
-              Win Ration: {playerStatisticsData.win_ratio}
+              Win Ratio: {playerStatisticsData.win_ratio}
             </Typography>
           </div>
 

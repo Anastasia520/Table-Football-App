@@ -18,7 +18,7 @@ const columns: GridColDef[] = [
   },
   {
     field: "win_ratio",
-    headerName: "Win Ration",
+    headerName: "Win Ratio",
     type: "number",
   },
 

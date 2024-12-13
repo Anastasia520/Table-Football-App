@@ -101,21 +101,11 @@ const Game = sequelize.define(
       allowNull: true,
     },
   },
-  {
-    indexes: [
-      {
-        unique: true,
-        fields: ["team1_id", "team2_id"],
-      },
-    ],
-  }
 );
 
 Game.belongsTo(Team, { as: "team1", foreignKey: "team1_id" });
 Game.belongsTo(Team, { as: "team2", foreignKey: "team2_id" });
 
-(async () => {
-  await sequelize.sync({ alter: true });
-})();
+
 
 module.exports = { Player, Team, Game };

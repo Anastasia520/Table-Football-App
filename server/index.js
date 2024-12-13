@@ -33,11 +33,15 @@ const specs = swaggerJsDoc(options);
 const app = express();
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, "static")));
 
 app.use("/api", router);
+
+app.use(express.static(path.resolve(__dirname, "frontend")));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+});
 
 // Error handling
 app.use(errorHandler);
@@ -52,4 +56,5 @@ const start = async () => {
   }
 };
 
+console.log("Server is starting...");
 start();

@@ -95,7 +95,7 @@ export default function TeamDetails(props: TeamDetailsProps) {
         <Typography>Goals For: {teamStatisticsData.goals_for}</Typography>
         <Typography>Wins: {teamStatisticsData.wins}</Typography>
         <Typography>Losses: {teamStatisticsData.losses}</Typography>
-        <Typography>Win Ration: {teamStatisticsData.win_ratio}</Typography>
+        <Typography>Win Ratio: {teamStatisticsData.win_ratio}</Typography>
       </div>
 
       <div className={cls.gamesContainer}>
