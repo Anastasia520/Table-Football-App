@@ -9,6 +9,9 @@ const URL = `${import.meta.env.VITE_BACK_URL}`;
 interface postCreateGameProps {
   team1_id: string | null;
   team2_id: string | null;
+  status?: string | null;
+  goals_team1?: number;
+  goals_team2?: number;
 }
 
 export const postCreateGame = createAsyncThunk<

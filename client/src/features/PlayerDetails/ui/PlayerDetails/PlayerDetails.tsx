@@ -10,6 +10,7 @@ import { getPlayerStatisticsRequestError } from "../../model/selectors/getPlayer
 import { getPlayerStatisticsRequestLoading } from "../../model/selectors/getPlayerStatisticsRequestLoading/getPlayerStatisticsRequestLoading";
 import { getPlayerStatistics } from "../../model/services/getPlayerStatistics/getPlayerStatistics";
 import { TeamGame } from "../../../../entities/Team";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef<TeamGame>[] = [
   {
@@ -61,6 +62,7 @@ interface TeamDetailsProps {
 export default function PlayerDetails(props: TeamDetailsProps) {
   const { id } = props;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const playerStatisticsData = useSelector(getPlayerStatisticsData);
   const errorPlayerStatistics = useSelector(getPlayerStatisticsRequestError);
@@ -71,6 +73,10 @@ export default function PlayerDetails(props: TeamDetailsProps) {
   useEffect(() => {
     dispatch(getPlayerStatistics(id));
   }, [id]);
+
+  const handleGameClick = (e: any) => {
+    navigate(`/game/${e.row.id}`);
+  };
 
   return (
     <div className={cls.playerDetailsContainer}>
@@ -97,9 +103,7 @@ export default function PlayerDetails(props: TeamDetailsProps) {
             <Typography>Goals For: {playerStatisticsData.goals_for}</Typography>
             <Typography>Wins: {playerStatisticsData.wins}</Typography>
             <Typography>Losses: {playerStatisticsData.losses}</Typography>
-            <Typography>
-              Win Ratio: {playerStatisticsData.win_ratio}
-            </Typography>
+            <Typography>Win Ratio: {playerStatisticsData.win_ratio}</Typography>
           </div>
 
           <div className={cls.gamesContainer}>
@@ -110,6 +114,7 @@ export default function PlayerDetails(props: TeamDetailsProps) {
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={[10]}
                 sx={{ border: 0 }}
+                onRowClick={handleGameClick}
               />
             </Paper>
           </div>

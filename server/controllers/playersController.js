@@ -114,31 +114,39 @@ class PlayersController {
         ],
       });
 
-      const processedGames = allGames.map((game) => {
-        const isPlayerInTeam1 =
-          game.team1 &&
-          (game.team1.player1_id === player.id ||
-            game.team1.player2_id === player.id);
+      const processedGames = allGames
+        .filter(
+          (game) =>
+            game.team1.player1_id === player.id ||
+            game.team1.player2_id === player.id ||
+            game.team2.player1_id === player.id ||
+            game.team2.player2_id === player.id
+        )
+        .map((game) => {
+          const isPlayerInTeam1 =
+            game.team1 &&
+            (game.team1.player1_id === player.id ||
+              game.team1.player2_id === player.id);
 
-        return {
-          id: game.id,
-          team1_id: {
-            id: game.team1 ? game.team1.id : null,
-            name: game.team1 ? game.team1.name : "",
-            goals_team: game.goals_team1,
-          },
-          team2_id: {
-            id: game.team2 ? game.team2.id : null,
-            name: game.team2 ? game.team2.name : "",
-            goals_team: game.goals_team2,
-          },
-          is_players_team1: isPlayerInTeam1,
-          status: game.status,
-          completed_at: game.completed_at,
-          createdAt: game.createdAt,
-          updatedAt: game.updatedAt,
-        };
-      });
+          return {
+            id: game.id,
+            team1_id: {
+              id: game.team1 ? game.team1.id : null,
+              name: game.team1 ? game.team1.name : "",
+              goals_team: game.goals_team1,
+            },
+            team2_id: {
+              id: game.team2 ? game.team2.id : null,
+              name: game.team2 ? game.team2.name : "",
+              goals_team: game.goals_team2,
+            },
+            is_players_team1: isPlayerInTeam1,
+            status: game.status,
+            completed_at: game.completed_at,
+            createdAt: game.createdAt,
+            updatedAt: game.updatedAt,
+          };
+        });
 
       const statistics = makePlayerStatistics(allGames, player);
 

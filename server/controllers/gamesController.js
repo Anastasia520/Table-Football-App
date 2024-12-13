@@ -4,9 +4,15 @@ const { Game, Team } = require("../models/models");
 class GamesController {
   async create(req, res, next) {
     try {
-      const { team1_id, team2_id, status } = req.body;
+      const { team1_id, team2_id, status, goals_team1, goals_team2 } = req.body;
 
-      const game = await Game.create({ team1_id, team2_id, status });
+      const game = await Game.create({
+        team1_id,
+        team2_id,
+        status,
+        goals_team1,
+        goals_team2,
+      });
 
       const fullGame = await Game.findOne({
         where: { id: game.id },

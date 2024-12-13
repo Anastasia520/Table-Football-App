@@ -170,11 +170,112 @@ const router = new Router();
  *                   format: uuid
  *                 name:
  *                   type: string
- *                 statistics:
- *                   $ref: '#/components/schemas/TeamStatistics'
+ *                 player_1:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                     name:
+ *                       type: string
+ *                 player_2:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                     name:
+ *                       type: string
+ *                 games:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         format: uuid
+ *                       team1_id:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                           name:
+ *                             type: string
+ *                           goals_team:
+ *                             type: integer
+ *                           player_1:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               name:
+ *                                 type: string
+ *                           player_2:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               name:
+ *                                 type: string
+ *                       team2_id:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                           name:
+ *                             type: string
+ *                           goals_team:
+ *                             type: integer
+ *                           player_1:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               name:
+ *                                 type: string
+ *                           player_2:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               name:
+ *                                 type: string
+ *                       status:
+ *                         type: string
+ *                       completed_at:
+ *                         type: string
+ *                         format: date-time
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *                 games_played:
+ *                   type: integer
+ *                 wins:
+ *                   type: integer
+ *                 losses:
+ *                   type: integer
+ *                 win_ratio:
+ *                   type: number
+ *                   format: float
+ *                 goals_for:
+ *                   type: integer
+ *                 goals_against:
+ *                   type: integer
+ *                 goal_difference:
+ *                   type: integer
  *       404:
  *         description: Team not found
  */
+
 
 router.post("/", teamsController.create);
 router.get("/", teamsController.getAll);

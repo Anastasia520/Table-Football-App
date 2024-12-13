@@ -57,55 +57,50 @@ Team.addHook("beforeValidate", (team, options) => {
 Team.belongsTo(Player, { as: "player1", foreignKey: "player1_id" });
 Team.belongsTo(Player, { as: "player2", foreignKey: "player2_id" });
 
-const Game = sequelize.define(
-  "Game",
-  {
-    id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-    },
-    team1_id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: Team,
-        key: "id",
-      },
-    },
-    team2_id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: Team,
-        key: "id",
-      },
-    },
-    goals_team1: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-    },
-    goals_team2: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-    },
-    status: {
-      type: DataTypes.ENUM("ongoing", "completed"),
-      allowNull: false,
-      defaultValue: "ongoing",
-    },
-    completed_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
+const Game = sequelize.define("Game", {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+  },
+  team1_id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: Team,
+      key: "id",
     },
   },
-);
+  team2_id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: Team,
+      key: "id",
+    },
+  },
+  goals_team1: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  goals_team2: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  status: {
+    type: DataTypes.ENUM("ongoing", "completed"),
+    allowNull: false,
+    defaultValue: "ongoing",
+  },
+  completed_at: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+});
 
 Game.belongsTo(Team, { as: "team1", foreignKey: "team1_id" });
 Game.belongsTo(Team, { as: "team2", foreignKey: "team2_id" });
-
-
 
 module.exports = { Player, Team, Game };

@@ -33,14 +33,20 @@ const specs = swaggerJsDoc(options);
 const app = express();
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 app.use("/api", router);
 
 app.use(express.static(path.resolve(__dirname, "frontend")));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+  res.set({
+    "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+    Pragma: "no-cache",
+    Expires: "0",
+    "Surrogate-Control": "no-store",
+  });
 });
 
 // Error handling

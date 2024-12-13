@@ -157,10 +157,111 @@ const router = new Router();
  *                 id:
  *                   type: string
  *                   format: uuid
+ *                   description: The unique ID of the player
+ *                   example: "52e291ca-98e2-4cd1-8443-d5301a3e7bbd"
  *                 name:
  *                   type: string
- *                 statistics:
- *                   $ref: '#/components/schemas/PlayerStatistics'
+ *                   description: The name of the player
+ *                   example: "Lili"
+ *                 games:
+ *                   type: array
+ *                   description: List of games the player participated in
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         format: uuid
+ *                         description: The unique ID of the game
+ *                         example: "5599caae-b97a-4047-acb8-7a51f76ae87c"
+ *                       team1_id:
+ *                         type: object
+ *                         description: Details of team 1
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             description: The unique ID of team 1
+ *                             example: "089ff8f2-0daa-4db2-a603-6d4f062a2391"
+ *                           name:
+ *                             type: string
+ *                             description: Name of team 1
+ *                             example: "Cutie Kickers"
+ *                           goals_team:
+ *                             type: integer
+ *                             description: Goals scored by this team in the game
+ *                             example: 1
+ *                       team2_id:
+ *                         type: object
+ *                         description: Details of team 2
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             description: The unique ID of team 2
+ *                             example: "ff7e7bad-a08f-4455-b318-62fc9fabde2a"
+ *                           name:
+ *                             type: string
+ *                             description: Name of team 2
+ *                             example: "Goal Giggles"
+ *                           goals_team:
+ *                             type: integer
+ *                             description: Goals scored by this team in the game
+ *                             example: 6
+ *                       is_players_team1:
+ *                         type: boolean
+ *                         description: Whether the player was in team 1
+ *                         example: false
+ *                       status:
+ *                         type: string
+ *                         enum: ["ongoing", "completed"]
+ *                         description: The current status of the game
+ *                         example: "completed"
+ *                       completed_at:
+ *                         type: string
+ *                         format: date-time
+ *                         description: Completion timestamp if the game is completed
+ *                         nullable: true
+ *                         example: null
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                         description: When the game was created
+ *                         example: "2024-12-13T08:28:55.632Z"
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *                         description: When the game was last updated
+ *                         example: "2024-12-13T08:29:06.865Z"
+ *                 games_played:
+ *                   type: integer
+ *                   description: The total number of games played by the player
+ *                   example: 7
+ *                 wins:
+ *                   type: integer
+ *                   description: The number of games won by the player's teams
+ *                   example: 3
+ *                 losses:
+ *                   type: integer
+ *                   description: The number of games lost by the player's teams
+ *                   example: 4
+ *                 win_ratio:
+ *                   type: number
+ *                   format: float
+ *                   description: The win ratio of the player
+ *                   example: 0.42857142857142855
+ *                 goals_for:
+ *                   type: integer
+ *                   description: The total goals scored by the player's teams
+ *                   example: 15
+ *                 goals_against:
+ *                   type: integer
+ *                   description: The total goals conceded by the player's teams
+ *                   example: 9
+ *                 goal_difference:
+ *                   type: integer
+ *                   description: The difference between goals scored and goals conceded
+ *                   example: 6
  *       404:
  *         description: Player not found
  */

@@ -18,7 +18,6 @@ const router = new Router();
  *       required:
  *         - team1_id
  *         - team2_id
- *         - status
  *       properties:
  *         id:
  *           type: string
@@ -98,12 +97,69 @@ const router = new Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Game'
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   format: uuid
+ *                   description: The unique ID of the game
+ *                 goals_team1:
+ *                   type: integer
+ *                   description: Goals scored by team 1
+ *                   example: 5
+ *                 goals_team2:
+ *                   type: integer
+ *                   description: Goals scored by team 2
+ *                   example: 0
+ *                 status:
+ *                   type: string
+ *                   enum: ["ongoing", "completed"]
+ *                   description: The current status of the game
+ *                   example: "completed"
+ *                 team1_id:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       description: The unique ID of team 1
+ *                     name:
+ *                       type: string
+ *                       description: The name of team 1
+ *                       example: "Goal Giggles"
+ *                 team2_id:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       description: The unique ID of team 2
+ *                     name:
+ *                       type: string
+ *                       description: The name of team 2
+ *                       example: "Cutie"
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   description: When the game was last updated
+ *                   example: "2024-12-13T09:31:46.613Z"
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   description: When the game was created
+ *                   example: "2024-12-13T09:31:46.613Z"
+ *                 completed_at:
+ *                   type: string
+ *                   format: date-time
+ *                   description: When the game was completed, if applicable
+ *                   nullable: true
+ *                   example: null
  *       404:
  *         description: Game not found
  *       400:
  *         description: Bad request
  */
+
 
 /**
  * @swagger

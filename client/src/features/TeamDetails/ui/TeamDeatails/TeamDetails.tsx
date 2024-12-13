@@ -9,6 +9,7 @@ import { getTeamStatisticsRequestLoading } from "../../model/selectors/getTeamSt
 import { Paper, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { PageLoader } from "../../../../widgets/PageLoader";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef<TeamGame>[] = [
   {
@@ -60,6 +61,7 @@ interface TeamDetailsProps {
 export default function TeamDetails(props: TeamDetailsProps) {
   const { id } = props;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const teamStatisticsData = useSelector(getTeamStatisticsData);
   const errorTeamStatistics = useSelector(getTeamStatisticsRequestError);
@@ -68,6 +70,10 @@ export default function TeamDetails(props: TeamDetailsProps) {
   useEffect(() => {
     dispatch(getTeamStatistics(id));
   }, [id]);
+
+  const handleGameClick = (e: any) => {
+    navigate(`/game/${e.row.id}`);
+  };
 
   return (
     <div className={cls.teamDetailsContainer}>
@@ -106,6 +112,7 @@ export default function TeamDetails(props: TeamDetailsProps) {
             initialState={{ pagination: { paginationModel } }}
             pageSizeOptions={[10]}
             sx={{ border: 0 }}
+            onRowClick={handleGameClick}
           />
         </Paper>
       </div>

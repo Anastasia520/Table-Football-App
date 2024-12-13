@@ -8,12 +8,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.teamDetailsContainer Typography {
-  font-size: 18px;
-  font-weight: 500;
-  color: #333333;
-}
-
 .mainStatistic {
   display: flex;
   flex-wrap: wrap;
@@ -22,11 +16,6 @@
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.mainStatistic Typography {
-  font-size: 14px;
-  color: #555555;
 }
 
 .gamesContainer {
@@ -78,31 +67,9 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.gameDetailsContainer .team Typography {
-  font-size: 16px;
-  color: #333333;
-  font-weight: 500;
-}
-
-.gameDetailsContainer .team TextField {
-  width: 120px;
-}
-
 .gameDetailsContainer .btns {
   display: flex;
   gap: 16px;
   justify-content: flex-end;
   margin-top: 20px;
-}
-
-.gameDetailsContainer .btnCreate {
-  background: #007bff;
-  color: #ffffff;
-  text-transform: none;
-  font-weight: bold;
-  padding: 10px 20px;
-}
-
-.gameDetailsContainer .btnCreate:hover {
-  background: #0056b3;
 }
