@@ -50,4 +50,4 @@ npm run dev
 
 ## Docker
 
-How to run the whole app in the Docker container, please read [here]()
+How to run the whole app in the Docker container, please read [here](https://github.com/Anastasia520/Table-Football-App/blob/master/README.md)
