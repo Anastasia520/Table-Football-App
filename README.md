@@ -11,8 +11,8 @@ https://github.com/user-attachments/assets/9eb21453-3263-4de6-8148-a97645bace43
 
 
 ## Documentation
-- Please read frontend [READ.me](https://github.com/Anastasia520/Table-Football-App/blob/master/client/README.md) file.
-- Please read backendend [READ.me](https://github.com/Anastasia520/Table-Football-App/blob/master/server/README.md) file.
+- Please read frontend [README.md](https://github.com/Anastasia520/Table-Football-App/blob/master/client/README.md) file.
+- Please read backendend [README.md](https://github.com/Anastasia520/Table-Football-App/blob/master/server/README.md) file.
 
 ## Installation and Docker
 
@@ -24,7 +24,7 @@ https://github.com/user-attachments/assets/9eb21453-3263-4de6-8148-a97645bace43
 
 ```bash
 
-git  clone  https://github.com/Anastasia520/Table-Football-App
+git clone https://github.com/Anastasia520/Table-Football-App
 
 ```
 
